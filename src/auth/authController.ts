@@ -4,6 +4,7 @@ import { UserCreateDto } from "src/auth/dto/user-create.dto";
 import { LoginDto } from "src/auth/dto/login.dto";
 import { RefreshTokenDto } from "src/auth/dto/refresh-token.dto";
 import { ChangePasswordDto } from "src/auth/dto/change-password.dto";
+import { AuthenticationGuard } from "./authntication.guard";
 
 @Controller('auth')
 export class authController {
@@ -26,7 +27,7 @@ export class authController {
         return this.authService.refreshTokens(refreshTokenDto.refreshToken);
     }
 
-    // @UseGuards(AuthenticationGuard)
+    @UseGuards(AuthenticationGuard)
     @Put('change-password')
     async changePassword(
         @Body() changePasswordDto: ChangePasswordDto,
