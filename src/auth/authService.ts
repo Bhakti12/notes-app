@@ -93,7 +93,6 @@ export class AuthService {
     }
 
     async changePassword(userId, oldPassword: string, newPassword: string) {
-        //Find the user
         const user = await this.UserModel.findById(userId);
         if (!user) {
             throw new NotFoundException('User not found...');
@@ -102,6 +101,11 @@ export class AuthService {
         const passwordMatch = await bcrypt.compare(oldPassword, user.password);
         if (!passwordMatch) {
             throw new UnauthorizedException('Wrong credentials');
+        }
+
+        const isSamePassword = await bcrypt.compare(newPassword, user.password);
+        if (isSamePassword) {
+            throw new BadRequestException("You can't set the older password again, please add a new password.");
         }
 
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
