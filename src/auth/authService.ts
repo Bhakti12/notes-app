@@ -106,6 +106,8 @@ export class AuthService {
 
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
         user.password = newHashedPassword;
-        await user.save();
+        const changedPassword = await user.save();
+
+        return changedPassword;
     }
 }

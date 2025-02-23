@@ -2,13 +2,13 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema()
 export class Task{
-    @Prop()
+    @Prop({ required: true })
     title: string;
 
-    @Prop()
+    @Prop({ required: true })
     content: string;
 
-    @Prop()
+    @Prop({ default: Date.now })
     createdAt: Date;
 }
 

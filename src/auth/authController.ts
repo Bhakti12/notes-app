@@ -5,13 +5,15 @@ import { LoginDto } from "src/auth/dto/login.dto";
 import { RefreshTokenDto } from "src/auth/dto/refresh-token.dto";
 import { ChangePasswordDto } from "src/auth/dto/change-password.dto";
 import { AuthenticationGuard } from "./authntication.guard";
+import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger";
 
+@ApiTags('Auth')
 @Controller('auth')
 export class authController {
     constructor(private readonly authService: AuthService) {
 
     }
-
+    
     @Post('signup')
     async SignUp(@Body() userDto: UserCreateDto) {
         return this.authService.signUp(userDto);
